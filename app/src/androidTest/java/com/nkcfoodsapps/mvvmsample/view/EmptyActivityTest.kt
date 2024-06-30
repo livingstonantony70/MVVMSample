@@ -44,28 +44,27 @@ class EmptyActivityTest {
     @Test
     fun test01_launchActivity_checkActivityIsDisplayed() {
         // Check that the activity is launched and displayed
-        val myText = withId(R.id.myTextView)
+        val myTextView = withId(R.id.myTextView)
+        val myButton = withId(R.id.myButton)
 
-        onView(withId(R.id.myTextView)).check(
+        onView(myButton).check(
+            matches(
+                isDisplayed()
+            )
+        )
+        onView(myTextView).check(
             matches(
                 isDisplayed()
             )
         ) // Replace R.id.content_view with the ID of a view in your EmptyActivity
 
-        onView(withId(R.id.myTextView)).check(matches(withText("--")))
-//        val myButton = onView(withId(R.id.myButton))
-        onView(withId(R.id.myButton)).perform(click())
+        onView(myTextView).check(matches(withText("--")))
+        onView(myButton).perform(click())
 
 
-
-//        onView(withId(R.id.myTextView)).check(matches(withText("Dummy API")))
-//        onView(withId(R.id.myTextView)).perform(waitForText("Dummy API", 5000))
-//        onView(withId(R.id.myTextView)).perform(waitForText("Loading..", 5000))
-        onView(withId(R.id.myTextView)).perform(waitForText("Dummy API", 5000))
+        onView(withId(R.id.myTextView)).perform(waitForText("Loading..", 5000))
+        onView(myTextView).perform(waitForText("Dummy API", 5000))
     }
-
-
-
 
 
     @After

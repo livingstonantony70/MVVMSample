@@ -43,7 +43,6 @@ class MyRepositoryTest {
     @Inject
     lateinit var repository: UserRepository
 
-
     private lateinit var viewModel: DataViewModel
 
     private val testDispatcher = StandardTestDispatcher()
@@ -56,9 +55,9 @@ class MyRepositoryTest {
         Dispatchers.setMain(testDispatcher)
 
 //        val composeView = composeTestRule.activity.findViewById<ComposeView>()
-      /* composeTestRule.setContent {
-           viewModel = hiltViewModel()
-       }*/
+        /* composeTestRule.setContent {
+             viewModel = hiltViewModel()
+         }*/
         viewModel = DataViewModel(repository)
 
 
@@ -71,7 +70,7 @@ class MyRepositoryTest {
     }
 
     @Test
-    fun get_employees_test() = runTest {
+    fun get_employees_test_repository() = runTest {
 
         val emissions = mutableListOf<Resource<Employees>>()
         repository.getEmployees().collect {
@@ -79,11 +78,6 @@ class MyRepositoryTest {
             emissions.add(it)
         }
 
-      /*  viewModel.employees.observeForever{
-            println("LIVE:STATUS: ${it.status}")
-            emissions.add(it)
-        }
-        viewModel.getEmployees()*/
         advanceUntilIdle()
 
 
@@ -92,6 +86,25 @@ class MyRepositoryTest {
         assertEquals(Resource.Status.SUCCESS, emissions[1].status)
 //        assertEquals(Resource.Status.SUCCESS, emissions[2].status)
     }
+
+    @Test
+    fun get_employees_test_viewmodel() = runTest {
+
+        val emissions = mutableListOf<Resource<Employees>>()
+
+        viewModel.employees.observeForever {
+            println("LIVE:STATUS: ${it.status}")
+            emissions.add(it)
+        }
+        viewModel.getEmployees()
+        advanceUntilIdle()
+
+        assertEquals(2, emissions.size)
+        assertEquals(Resource.Status.LOADING, emissions[0].status)
+        assertEquals(Resource.Status.SUCCESS, emissions[1].status)
+//        assertEquals(Resource.Status.SUCCESS, emissions[2].status)
+    }
+
 
     @After
     fun tearDown() {
