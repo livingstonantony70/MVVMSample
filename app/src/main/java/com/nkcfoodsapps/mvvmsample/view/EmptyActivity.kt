@@ -31,19 +31,23 @@ class EmptyActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate: $it")
             when(it.status){
                 Resource.Status.LOADING -> {
+                    binding?.myTextView?.text = "Loading.."
                     Log.d(TAG, "loading...")
 //                    binding.progressBarogressBar.visibility = View.VISIBLE
                 }
                 Resource.Status.SUCCESS -> {
+                    binding?.myTextView?.text = "${it.data?.message}"
                     Log.d(TAG, "success: ${it.data}")
 //                    binding.progressBar.visibility = View.GONE
                 }
                 Resource.Status.ERROR -> {
+                    binding?.myTextView?.text = "Success: ${it.message}"
                     Log.d(TAG, "error: ${it.message}")
 //                    binding.progressBar.visibility = View.GONE
                 }
             }
         }
+
 
         binding?.myButton?.setOnClickListener {
             viewModel.getEmployees()

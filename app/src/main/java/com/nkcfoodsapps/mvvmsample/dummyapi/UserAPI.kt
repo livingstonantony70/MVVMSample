@@ -13,4 +13,6 @@ interface UserAPI {
 
     @GET("employee/{id}")
     suspend fun getEmployee(@Path("id") id: Int): Employee
+
+    fun getName():String
 }
