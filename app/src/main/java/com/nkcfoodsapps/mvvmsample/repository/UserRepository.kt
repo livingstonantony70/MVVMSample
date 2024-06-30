@@ -13,7 +13,7 @@ import javax.inject.Named
 class UserRepository
 @Inject
 constructor(
-   @Named("name1") private val userAPI: UserAPI
+    /*@Named("name1")*/ private val userAPI: UserAPI
 ) {
 
     suspend fun getEmployees(): Flow<Resource<Employees>> = flow {
@@ -28,7 +28,7 @@ constructor(
     }
 
 
-    suspend fun getEmployee(id:Int): Flow<Resource<Employee>> = flow {
+    suspend fun getEmployee(id: Int): Flow<Resource<Employee>> = flow {
         emit(Resource.loading())
         delay(1000)
 
@@ -38,4 +38,7 @@ constructor(
             emit(Resource.error(e.toString(), null))
         }
     }
+
+    fun getName() = userAPI.getName()
+
 }

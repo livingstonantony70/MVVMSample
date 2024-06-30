@@ -2,26 +2,27 @@ package com.nkcfoodsapps.mvvmsample.dummyapi
 
 import com.nkcfoodsapps.mvvmsample.model.data.Employee
 import com.nkcfoodsapps.mvvmsample.model.data.Employees
+import javax.inject.Inject
 
-class DummyUserApiImpl : UserAPI {
+class DummyUserApiImplTest : UserAPI {
     private val employees = listOf(
         Employees.Data(
             1,
-            "employee_name 1",
+            "employee_name 1 test",
             1 + 100L,
             1 * 10,
             ""
         ),
         Employees.Data(
             2,
-            "employee_name 2",
+            "employee_name 2 test",
             2 + 100L,
             2 * 10,
             ""
         ),
         Employees.Data(
             3,
-            "employee_name 3",
+            "employee_name 3 test",
             3 + 100L,
             3 * 10,
             ""
@@ -32,7 +33,7 @@ class DummyUserApiImpl : UserAPI {
     override suspend fun getEmployees(): Employees {
         return Employees(
             "success",
-            "Dummy api",
+            "Dummy API",
             employees
         )
     }
@@ -40,12 +41,12 @@ class DummyUserApiImpl : UserAPI {
     override suspend fun getEmployee(id: Int): Employee {
         return Employee(
             "success",
-            "Successfully! All records has been fetched.",
-           null
+            "Dummy api",
+            null
         )
     }
 
     override fun getName(): String {
-        return "Production Name"
+        return "Test execution"
     }
 }

@@ -34,4 +34,6 @@ constructor(private val repository: UserRepository) : ViewModel() {
             }.launchIn(viewModelScope)
         }
     }
+
+    fun getName() = repository.getName()
 }

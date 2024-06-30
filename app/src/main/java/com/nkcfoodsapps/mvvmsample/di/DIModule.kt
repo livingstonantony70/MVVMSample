@@ -27,18 +27,17 @@ object DIModule {
 
     }
 
-    @Named("name1")
+//    @Named("name1")
     @Provides
     fun provideBlogService(retrofit: Retrofit.Builder): UserAPI {
         return retrofit
             .build()
             .create(UserAPI::class.java)
     }
-
-    @Named("name2")
-    @Provides
+//   @Named("name2")
+  /*  @Provides
     fun userAPI(): UserAPI {
         return DummyUserApiImpl()
     }
-
+*/
 }
