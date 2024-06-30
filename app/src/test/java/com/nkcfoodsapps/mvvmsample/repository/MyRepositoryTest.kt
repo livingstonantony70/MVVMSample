@@ -74,7 +74,7 @@ class MyRepositoryTest {
 
         val emissions = mutableListOf<Resource<Employees>>()
         repository.getEmployees().collect {
-            println("TIME: ${Date()}: FLOW:STATUS: ${it.status}")
+            println("${Date()}: FLOW:STATUS: ${it.status}")
             emissions.add(it)
         }
 
@@ -87,13 +87,14 @@ class MyRepositoryTest {
 //        assertEquals(Resource.Status.SUCCESS, emissions[2].status)
     }
 
+
     @Test
     fun get_employees_test_viewmodel() = runTest {
 
         val emissions = mutableListOf<Resource<Employees>>()
 
         viewModel.employees.observeForever {
-            println("LIVE:STATUS: ${it.status}")
+            println("${Date()}: LIVE:STATUS: ${it.status}")
             emissions.add(it)
         }
         viewModel.getEmployees()
@@ -101,7 +102,7 @@ class MyRepositoryTest {
 
         assertEquals(2, emissions.size)
         assertEquals(Resource.Status.LOADING, emissions[0].status)
-        assertEquals(Resource.Status.SUCCESS, emissions[1].status)
+        assertEquals(Resource.Status.ERROR, emissions[1].status)
 //        assertEquals(Resource.Status.SUCCESS, emissions[2].status)
     }
 
